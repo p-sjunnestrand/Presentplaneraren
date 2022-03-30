@@ -2,30 +2,26 @@ import { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Login from './Components/Login';
+import Register from './Components/Register';
 
-const serverURI = "http://localhost:4000/auth/login/success"
 
 function App() {
   const [user, setUser] = useState(null)
+  const serverURI = "http://localhost:4000/auth/login/success"
 
   useEffect(() => {
     console.log("hello!");
-    
-      // fetch("http://localhost:4000")
-      // .then(res => res.json())
-      // .then(data => {
-      //   console.log(data);
-      // })
       fetch(serverURI, {
         method: "GET",
         credentials: "include",
         headers: {
-          // Accept: "application/json",
+          Accept: "application/json",
           "Content-Type": "application/json",
-          // "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Credentials": true,
         },
       })
       .then(response => {
+        console.log("hej!");
         if(response.status === 200) {
           return response.json();
         }  
@@ -42,11 +38,12 @@ function App() {
       })
    
   }, []);
+
   return (
     <main>
-      <h1>Welcome {user? user : "guest"}</h1>
+      <h1>Welcome {user? user.emails[0].value : "guest"}</h1>
       <Login/>
-
+      <Register/>
     </main>
   );
 }
