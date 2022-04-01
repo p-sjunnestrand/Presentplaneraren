@@ -3,10 +3,13 @@ import logo from './logo.svg';
 import './App.css';
 import Login from './Components/Login';
 import Register from './Components/Register';
+import Dashboard from './Components/Dashboard';
+import Authorized from './Components/Authorized';
+import Unauthorized from './Components/Unauthorized';
 
 
 function App() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState<undefined | Object>(undefined)
   const serverURI = "http://localhost:4000/auth/login/success"
 
   useEffect(() => {
@@ -17,7 +20,7 @@ function App() {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
+          // "Access-Control-Allow-Credentials": true,
         },
       })
       .then(response => {
@@ -39,11 +42,12 @@ function App() {
    
   }, []);
 
-  return (
+  return ( 
     <main>
-      <h1>Welcome {user? user.emails[0].value : "guest"}</h1>
-      <Login/>
-      <Register/>
+      {user && <Authorized/>}
+      {!user && <Unauthorized setUser={setUser}/>}
+      
+      {/* <h1>Welcome {user? user.emails[0].value : "guest"}</h1> */}
     </main>
   );
 }
