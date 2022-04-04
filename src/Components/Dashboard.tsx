@@ -10,7 +10,7 @@ interface Props {
 const Dashboard = (props: Props) => {
     
     return (
-        <section>
+        <section className='bg-indigo-500'>
             <ListsPrev lists={props.lists} setView={props.setView}/>
             <GroupsPrev groups={props.groups}/>
             <button>Inställningar</button>

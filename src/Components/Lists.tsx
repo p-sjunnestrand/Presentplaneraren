@@ -20,18 +20,20 @@ const Lists = (props: Props) => {
         props.setCurrentList(e.currentTarget.id);
         props.setView("list")
     }
-    const deleteList = async (id: string) => {
+    const deleteList = async (e: React.SyntheticEvent, id: string) => {
+        e.stopPropagation();
         const fetchResult = await fetch("http://localhost:4000/lists/delete", {
             method: "POST",
             credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(id)
+            body: JSON.stringify({id: id})
         });
         if(fetchResult.status === 200){
             const newLists: IList[] = props.lists.filter(list => list._id !== id);
             console.log(newLists);
+            props.setLists(newLists);
             
         }
         // const parsedResult = await fetchResult.json();
@@ -44,7 +46,7 @@ const Lists = (props: Props) => {
             <ul>
                 {props.lists?.map(list => {
                     return (
-                        <li key={list._id} id={list._id} onClick={handleClick}>{list.title}<button onClick={() => deleteList(list._id)}>Ta bort</button></li>
+                        <li key={list._id} id={list._id} onClick={handleClick}>{list.title}<button onClick={(e) => deleteList(e, list._id)}>Ta bort</button></li>
                         
                     )
                 })}
