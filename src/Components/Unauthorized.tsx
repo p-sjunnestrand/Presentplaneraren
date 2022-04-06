@@ -2,7 +2,7 @@ import Login from './Login';
 import Register from './Register';
 
 interface Props {
-    setUser: (authUser: Object) => void,
+    setUser: (authUser: IUser|undefined) => void,
 }
 
 const Unauthorized = (props: Props) => {

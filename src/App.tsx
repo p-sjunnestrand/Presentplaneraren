@@ -9,7 +9,7 @@ import Unauthorized from './Components/Unauthorized';
 
 
 function App() {
-  const [user, setUser] = useState<undefined | Object>(undefined)
+  const [user, setUser] = useState<undefined | IUser>(undefined)
   const serverURI = "http://localhost:4000/auth/login/success"
 
   useEffect(() => {
@@ -43,8 +43,8 @@ function App() {
   }, []);
 
   return ( 
-    <main>
-      {user && <Authorized/>}
+    <main className='bg-bg-main min-h-screen text-detail-sec'>
+      {user && <Authorized user={user}/>}
       {!user && <Unauthorized setUser={setUser}/>}
       
       {/* <h1>Welcome {user? user.emails[0].value : "guest"}</h1> */}

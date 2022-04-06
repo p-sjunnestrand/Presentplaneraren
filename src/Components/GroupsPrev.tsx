@@ -1,19 +1,21 @@
 
 interface Props {
-    groups: IGroup[],
+    user: IUser|undefined,
+    setView: (view: string) => void,
 }
 
 const GroupsPrev = (props: Props) => {
     return (
-        <section>
+        <section onClick={() => props.setView("groups")} className="cursor-pointer">
             <h2>Grupper</h2>
-            <ul>
+            <p>Antal: {props.user?.groups.length}</p>
+            {/* <ul>
                 {props.groups.map(group => {
                     return (
                         <li key={group._id}>{group.name}</li>
                     )
                 })}
-            </ul>
+            </ul> */}
         </section>
     );
 };

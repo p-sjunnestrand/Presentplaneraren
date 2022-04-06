@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface Props {
-    setUser: (authUser: Object) => void,
+    setUser: (authUser: IUser|undefined) => void,
 }
 const Login = (props: Props) => {
     const googleLogin = (): void => {
@@ -22,7 +22,7 @@ const Login = (props: Props) => {
             })
         });
         const resultData = await fetchResult.json();
-        props.setUser(resultData);
+        props.setUser(resultData.user);
         
     }
 

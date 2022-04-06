@@ -3,10 +3,14 @@ import NewList from "./NewList";
 import Lists from "./Lists";
 import { useState, useEffect } from 'react';
 import List from "./List";
+import Navbar from "./Navbar";
+import Groups from './Groups';
 
+interface Props {
+    user: IUser|undefined
+}
 
-
-const Authorized = () => {
+const Authorized = (props: Props) => {
     const [lists, setLists] = useState<IList[]>([]);
     const [groups, setGroups] = useState<IGroup[]>([]);
     const [view, setView] = useState<string>("dashboard");
@@ -17,7 +21,8 @@ const Authorized = () => {
         
         const fetchLists = async () => {
             console.log("fetchting!");
-            
+
+            // This fetch also fetches all groups connected to the user.
             const fetchResult = await fetch("http://localhost:4000/lists", {
                 method: "GET",
                 credentials: "include",
@@ -53,11 +58,13 @@ const Authorized = () => {
     const renderSwitch = () => {
         switch(view) {
             case "dashboard":
-                return <Dashboard lists={lists} groups={groups} setView={setView}/>;
+                return <Dashboard lists={lists} groups={groups} setView={setView} user={props.user}/>;
             case "lists":
                 return <Lists lists={lists} setLists={setLists} setView={setView} setCurrentList={setCurrentList}/>;
             case "list":
-                return <List lists={lists} currentList={currentList} setView={setView} createItem={createItem}/>
+                return <List lists={lists} currentList={currentList} setView={setView} createItem={createItem}/>;
+            case "groups":
+                return <Groups groups={groups} setView={setView} setGroups={setGroups}/>
         }
     }
     let currentView = renderSwitch();
@@ -65,7 +72,9 @@ const Authorized = () => {
     // const newState = [...lists, lists]
     return (
         <>
+            <img src="/img/Top-border.svg" alt="Decorative border" aria-hidden="true" className="w-screen"/>
             {currentView}
+            <Navbar/>
             {/* {showCreateList && <NewList lists={lists} setLists={setLists}/>} */}
         </>
     );

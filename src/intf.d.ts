@@ -17,3 +17,17 @@ interface IItem {
     url: string,
     store: string
 }
+
+interface IUser {
+    _id: string,
+    email: string,
+    groups: IGroup[],
+    lists: IList[],
+    nameFirst: string,
+    nameLast: string
+}
+
+interface IInvitee {
+    _id: string,
+    email: string
+}
