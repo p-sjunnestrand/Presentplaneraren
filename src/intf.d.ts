@@ -24,10 +24,17 @@ interface IUser {
     groups: IGroup[],
     lists: IList[],
     nameFirst: string,
-    nameLast: string
+    nameLast: string,
+    invites: IInvite[],
 }
 
 interface IInvitee {
     _id: string,
     email: string
+}
+
+interface IInvite {
+    _id: string,
+    name: string,
+    owner: string
 }

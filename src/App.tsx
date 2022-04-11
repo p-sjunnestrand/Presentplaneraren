@@ -42,9 +42,30 @@ function App() {
    
   }, []);
 
+  const changeInvites = async (id: string, resp: boolean) => {
+    const inviteResponse = {
+      id: id,
+      response: resp 
+    }
+    const fetchResult = await fetch("http://localhost:4000/groups/invites", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(inviteResponse)
+    });
+    if(fetchResult.status === 200) {
+      const parsedResponse = await fetchResult.json();
+      // setUser(parsedResponse);
+      console.log(parsedResponse);
+      
+    }
+  }
+
   return ( 
-    <main className='bg-bg-main min-h-screen text-detail-sec'>
-      {user && <Authorized user={user}/>}
+    <main className='bg-bg-main min-h-screen text-detail-sec overflow-y-auto flex'>
+      {user && <Authorized user={user} changeInvites={changeInvites}/>}
       {!user && <Unauthorized setUser={setUser}/>}
       
       {/* <h1>Welcome {user? user.emails[0].value : "guest"}</h1> */}

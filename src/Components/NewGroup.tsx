@@ -58,7 +58,7 @@ const NewList = (props: Props) => {
 
     return (
         <article>
-            <h1>ny lista</h1>
+            <h1>ny grupp</h1>
             <form action="submit">
                 <div>
                     <label htmlFor="newGroupName">Gruppens namn</label>
@@ -71,7 +71,7 @@ const NewList = (props: Props) => {
                     <ul>
                         {invited.map(invitee => {
                             return (
-                                <li>{invitee.email}</li>
+                                <li key={invitee.email}>{invitee.email}</li>
                             )
                         })}
                     </ul>

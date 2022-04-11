@@ -6,7 +6,8 @@ interface Props {
     lists: IList[]|undefined,
     groups: IGroup[],
     setView: (view: string) => void,
-    user: IUser|undefined
+    user: IUser|undefined,
+    invites: IInvite[],
 }
 const Dashboard = (props: Props) => {
     

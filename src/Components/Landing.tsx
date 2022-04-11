@@ -1,29 +1,11 @@
-import { useState } from 'react';
-import Login from './Login';
-import Register from './Register';
-import Landing from './Landing';
 import Welcome from './Welcome';
 
-interface Props {
-    setUser: (authUser: IUser|undefined) => void,
+interface Props{
+    setView: (view: string) => void,
 }
 
-const Unauthorized = (props: Props) => {
-    const [view, setView] = useState("landing");
-
-    const viewRender = () => {
-        switch(view) {
-            case "landing":
-                return <Landing setView={setView}/>
-            case "login":
-                return <Login setUser={props.setUser}/>
-            case "register":
-                return <Register/>
-            
-        }
-    }
+const Landing = (props: Props) => {
     return (
-        // <>
         <section className="flex flex-col">
             <header>
             <img src="/img/Top-border.svg" alt="Decorative border" aria-hidden="true" className="w-screen"/>
@@ -36,13 +18,11 @@ const Unauthorized = (props: Props) => {
                 <img src="/img/decorative-star.svg" alt="" aria-hidden="true" className="w-16 absolute top-5 left-[6%]"/>
                 <img src="/img/decorative-star.svg" alt="" aria-hidden="true" className="w-16 absolute top-5 right-[6%]"/>
                 <div className="flex grow flex-col items-center">
-                    <Welcome setView={setView}/>
+                    <Welcome setView={props.setView}/>
                 </div>
             </div>
         </section>
-            // {viewRender()}
-        // </>
     );
 };
 
-export default Unauthorized;
+export default Landing;

@@ -10,6 +10,7 @@ const ListsPrev = (props: Props) => {
     return (
         <article onClick={() => props.setView("lists")} className="border-detail-prim border-2 w-3/4 rounded-2xl p-4 mt-4 cursor-pointer">
             <h2>Listor</h2>
+            {/* This shouldn't be taken from user but rather from lists since it's already currated. Same goes for groups */}
             <p>Antal: {props.user?.lists.length}</p>
             {/* <ul>
                 {props.lists?.map(list => {
