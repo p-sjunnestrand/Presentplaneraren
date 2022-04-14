@@ -63,7 +63,6 @@ const List = (props: Props) => {
     const closeList = () => {
         props.setCurrentList(undefined);
         props.setView(props.previousView);
-
     }
 
     const checkListOwner = (): boolean => {
