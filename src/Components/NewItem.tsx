@@ -18,6 +18,7 @@ const NewItem = (props: Props) => {
             desc: itemDesc,
             url: itemUrl,
             store: itemStore,
+            taken: false,
         }
         props.createItem(newItem);
     }

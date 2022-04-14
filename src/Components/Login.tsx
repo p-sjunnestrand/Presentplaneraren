@@ -2,6 +2,7 @@ import { useState } from "react";
 
 interface Props {
     setUser: (authUser: IUser|undefined) => void,
+    setView: (view: string) => void,
 }
 const Login = (props: Props) => {
     const googleLogin = (): void => {
@@ -40,17 +41,30 @@ const Login = (props: Props) => {
     const [password, setPassword] = useState<string>("");
 
     return (
-        <section>
-            <button id="buttonGoogleLogin" onClick={googleLogin}>Google</button>
-            <form action="submit">
-                <label htmlFor="loginEmail">E-post</label>
-                <input type="text" name='email' id='loginEmail' value={email} onChange={(e: React.FormEvent<HTMLInputElement>) => setEmail(e.currentTarget.value)}/>
-                <label htmlFor="loginPassword">Lösenord</label>
-                <input type="text" name='password' id='loginPassword' value={password} onChange={(e: React.FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}/>
-                <button onClick={localLogin}>Logga in</button>
+        <>
+            <img src="/img/form.svg" alt="" className="absolute top-36 max-w-[60%]"/>
+            {/* <button id="buttonGoogleLogin" onClick={googleLogin}>Google</button> */}
+            <h2 className="relative text-2xl top-32">Inloggning</h2>
+            <form action="submit" className="relative mt-[8.5rem] flex flex-col items-center" onSubmit={localLogin}>
+                <div>
+                    <label htmlFor="loginEmail" className="block">E-post</label>
+                    <input type="text" name='email' id='loginEmail' value={email} className="h-9" onChange={(e: React.FormEvent<HTMLInputElement>) => setEmail(e.currentTarget.value)}/>
+                </div>
+                <div>
+                    <label htmlFor="loginPassword" className="block">Lösenord</label>
+                    <input type="password" name='password' id='loginPassword' value={password} className="h-9" onChange={(e: React.FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}/>
+                </div>
+                <button className="relative w-[10.313rem] border-2 border-detail-sec h-[3.75rem] shadow-button mt-6 bg-white" type="submit">
+                    <img src="/img/button-border.svg" alt="" aria-hidden="true" className="absolute top-0 w-[10.313rem]"/>
+                    Logga in
+                </button>
+                {/* <button onClick={localLogin}>Logga in</button> */}
             </form>
+            <button className="mt-4" onClick={() => props.setView("landing")}>
+                <img src="/img/button-back.svg" alt="" className="relative"/>
+            </button>
             {/* <button onClick={getUser}>Get user</button> */}
-        </section>
+        </>
     );
 };
 

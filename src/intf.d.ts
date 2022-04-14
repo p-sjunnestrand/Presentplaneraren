@@ -1,7 +1,8 @@
 interface IList {
     title: string,
     _id: string,
-    items: IItem[], 
+    items: IItem[],
+    owner: string,
 }
 
 interface IGroup {

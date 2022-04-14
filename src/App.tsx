@@ -64,7 +64,14 @@ function App() {
   }
 
   return ( 
-    <main className='bg-bg-main min-h-screen text-detail-sec overflow-y-auto flex'>
+    <main className='bg-bg-main min-h-screen text-detail-sec overflow-y-auto flex flex-col'>
+      <header>
+            <img src="/img/Top-border.svg" alt="Decorative border" aria-hidden="true" className="w-screen"/>
+                <div className="bg-bg-minor py-[0.5rem] text-center">
+                    <h1>Presentplaneraren</h1>
+                </div>
+                <img src="/img/Top-border.svg" alt="Decorative border" aria-hidden="true" className="w-screen"/>
+            </header>
       {user && <Authorized user={user} changeInvites={changeInvites}/>}
       {!user && <Unauthorized setUser={setUser}/>}
       

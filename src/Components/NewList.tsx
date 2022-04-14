@@ -5,6 +5,7 @@ interface Props {
     setLists: (listsParam: IList[])=>void,
     lists: IList[],
     setIsOpen: (param: boolean) => void,
+    currentGroup?: IGroup|undefined,
 }
 
 const NewList = (props: Props) => {
@@ -15,19 +16,26 @@ const NewList = (props: Props) => {
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         console.log(listTitle);
+        const newList = {
+            title: listTitle,
+            inGroup: props.currentGroup ? props.currentGroup._id : null,
+        }
+        console.log(newList);
+        
         const result = await fetch("http://localhost:4000/lists/create", {
             method: "POST",
             credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({title: listTitle})
+            body: JSON.stringify(newList)
         });
         if(result.status === 200){
             const parsedResult = await result.json();
             console.log(parsedResult);
             const newListState: IList[] = [...props.lists, parsedResult];
             props.setLists(newListState);
+            props.setIsOpen(false);
         } else {
             console.log("Error");
         }
@@ -35,16 +43,13 @@ const NewList = (props: Props) => {
        
     }
     return (
-        <article className="newListModal">
+        <>
+        {/* <article className="newListModal"> */}
             <h1>ny lista</h1>
             <form action="submit">
                 <div className="newListSubWrapper">
                     <label htmlFor="newListName">Titel</label>
                     <input type="text" id="newListName" onChange={(e) => setListTitle(e.currentTarget.value)}/>
-                </div>
-                <div className="newListSubWrapper">
-                    <label htmlFor="personalList">Personlig lista</label>
-                    <input type="checkbox" id="personalList"/>
                 </div>
                 <div className="newListSubWrapper">
                     <label htmlFor="newListGroup">Grupp</label>
@@ -55,7 +60,8 @@ const NewList = (props: Props) => {
                 <button type="submit" onClick={handleSubmit}>Skapa lista</button>
             </form>
             <button onClick={() => props.setIsOpen(false)}>Stäng</button>
-        </article>
+        {/* </article> */}
+        </>
     );
 };
 

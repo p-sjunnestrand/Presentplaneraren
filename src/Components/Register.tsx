@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-const Register = () => {
+interface Props {
+setView: (view: string) => void,
+}
+const Register = (props: Props) => {
     // const [userInfo, setUserInfo] = useState(
     //     {
     //         userEmail: "",
@@ -42,22 +45,35 @@ const Register = () => {
         
     }
     return (
-        <section>
-            <h1>Skapa ett nytt konto</h1>
-            <form action="submit">
-                <label htmlFor="inputNewEmail">E-post</label>
-                <input type="text" id="inputNewEmail" required value={userEmail} onChange={(e: React.FormEvent<HTMLInputElement>) => setUserEmail(e.currentTarget.value)}/>
-                <label htmlFor="inputNewPassword">Lösenord</label>
-                <input type="password" id="inputNewPassword" required value={userPassword} onChange={(e: React.FormEvent<HTMLInputElement>) => setUserPassword(e.currentTarget.value)}/>
-                <label htmlFor="inputConfirmPassword">Upprepa lösenordet</label>
-                <input type="password" id="inputConfirmPassword" required value={confirmPassword} onChange={(e: React.FormEvent<HTMLInputElement>) => setConfirmPassword(e.currentTarget.value)}/>
-                <label htmlFor="inputNameFirst">Förnamn</label>
+        <>
+            <img src="/img/form.svg" alt="" className="absolute top-36 max-w-[60%]"/>
+            <h2 className="relative text-2xl top-32">Skapa konto</h2>
+            <form action="submit" className="relative mt-[8.5rem] flex flex-col items-center" onSubmit={registerUser}>
+                <div>
+                    <label htmlFor="inputNewEmail" className="block">E-post</label>
+                    <input type="text" id="inputNewEmail" required value={userEmail} onChange={(e: React.FormEvent<HTMLInputElement>) => setUserEmail(e.currentTarget.value)}/>
+                </div>
+                <div>
+                    <label htmlFor="inputNewPassword" className="block">Lösenord</label>
+                    <input type="password" id="inputNewPassword" required value={userPassword} onChange={(e: React.FormEvent<HTMLInputElement>) => setUserPassword(e.currentTarget.value)}/>
+                </div>
+                <div>
+                    <label htmlFor="inputConfirmPassword" className="block">Upprepa lösenordet</label>
+                    <input type="password" id="inputConfirmPassword" required value={confirmPassword} onChange={(e: React.FormEvent<HTMLInputElement>) => setConfirmPassword(e.currentTarget.value)}/>
+                </div>
+                {/* <label htmlFor="inputNameFirst">Förnamn</label>
                 <input type="text" id="inputNameFirst" value={userNameFirst} onChange={(e: React.FormEvent<HTMLInputElement>) => setUserNameFirst(e.currentTarget.value)}/>
                 <label htmlFor="inputNameLast">Efternamn</label>
-                <input type="text" id="inputNameLast" value={userNameLast} onChange={(e: React.FormEvent<HTMLInputElement>) => setUserNameLast(e.currentTarget.value)}/>
-                <button onClick={registerUser}>Spara</button>
+                <input type="text" id="inputNameLast" value={userNameLast} onChange={(e: React.FormEvent<HTMLInputElement>) => setUserNameLast(e.currentTarget.value)}/> */}
+                <button type="submit" className="relative w-[10.313rem] border-2 border-detail-sec h-[3.75rem] shadow-button mt-4 bg-white">
+                    <img src="/img/button-border.svg" alt="" aria-hidden="true" className="absolute top-0 w-[10.313rem]"/>
+                    Skapa konto
+                </button>
             </form>
-        </section>
+            <button className="mt-4" onClick={() => props.setView("landing")}>
+                <img src="/img/button-back.svg" alt="" className="relative"/>
+            </button>
+        </>
     );
 };
 
