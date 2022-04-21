@@ -45,21 +45,28 @@ const NewList = (props: Props) => {
     return (
         <>
         {/* <article className="newListModal"> */}
-            <h1>ny lista</h1>
-            <form action="submit">
-                <div className="newListSubWrapper">
-                    <label htmlFor="newListName">Titel</label>
-                    <input type="text" id="newListName" onChange={(e) => setListTitle(e.currentTarget.value)}/>
+            <h2 className="text-detail-sec text-center">Ny lista</h2>
+            <img src="/img/separator.svg" alt="" className='w-[50px] mx-auto'/>
+            <form action="submit" className="mt-8">
+                <div className="flex">
+                    <label htmlFor="newListName" className="">Titel:</label>
+                    <input type="text" id="newListName" className="ml-4 border border-detail-sec" onChange={(e) => setListTitle(e.currentTarget.value)}/>
                 </div>
-                <div className="newListSubWrapper">
-                    <label htmlFor="newListGroup">Grupp</label>
-                    <select name="newListGroup" id="newListGroup">
+                <div className="flex mt-4">
+                    <label htmlFor="newListGroup" className="">Grupp:</label>
+                    <select name="newListGroup" id="newListGroup" className="ml-4 bg-white border border-detail-sec">
                         <option value="filler">Filler</option>
                     </select>
                 </div>
-                <button type="submit" onClick={handleSubmit}>Skapa lista</button>
+                <button type="submit" className="mt-4 relative w-32 h-9 flex flex-col items-center justify-center border border-detail-sec shadow-button" onClick={handleSubmit}>
+                    <img src="/img/large-button.svg" alt="" className="absolute top-0 left-0"/>
+                    Skapa lista
+                </button>
             </form>
-            <button onClick={() => props.setIsOpen(false)}>Stäng</button>
+            <button type="submit" className="mt-4 relative w-32 h-9 flex flex-col items-center justify-center border border-detail-sec shadow-button" onClick={() => props.setIsOpen(false)}>
+                <img src="/img/large-button.svg" alt="" className="absolute top-0 left-0"/>
+                Stäng
+            </button>
         {/* </article> */}
         </>
     );

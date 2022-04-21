@@ -16,7 +16,8 @@ interface IItem {
     name: string,
     desc: string,
     url: string,
-    store: string
+    store: string,
+    taken: string
 }
 
 interface IUser {

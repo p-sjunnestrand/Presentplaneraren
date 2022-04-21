@@ -2,10 +2,10 @@ import { useState } from 'react';
 import Login from './Login';
 import Register from './Register';
 import Landing from './Landing';
-// import Welcome from './Welcome';
 
 interface Props {
     setUser: (authUser: IUser|undefined) => void,
+    matches: boolean,
 }
 
 const Unauthorized = (props: Props) => {
@@ -14,36 +14,44 @@ const Unauthorized = (props: Props) => {
     const viewRender = () => {
         switch(view) {
             case "landing":
-                return <Landing setView={setView}/>
+                return <Landing setView={setView} matches={props.matches}/>
             case "login":
                 return <Login setUser={props.setUser} setView={setView}/>
             case "register":
-                return <Register setView={setView}/>
+                return <Register setView={setView} setUser={props.setUser}/>
             
         }
     }
     return (
-        <>
-        {/* <section className="flex flex-col"> */}
-            {/* <header>
-            <img src="/img/Top-border.svg" alt="Decorative border" aria-hidden="true" className="w-screen"/>
-                <div className="bg-bg-minor py-4 text-center">
-                    <h1 className="text-4xl">Presentplaneraren</h1>
-                </div>
-                <img src="/img/Top-border.svg" alt="Decorative border" aria-hidden="true" className="w-screen"/>
-            </header> */}
-            <section className="relative pt-8 grow flex flex-col">
+        <section className={`relative pt-8 grow flex flex-col`}>
+            {!props.matches && <>
                 <img src="/img/decorative-star.svg" alt="" aria-hidden="true" className="w-16 absolute top-5 left-[6%]"/>
                 <img src="/img/decorative-star.svg" alt="" aria-hidden="true" className="w-16 absolute top-5 right-[6%]"/>
                 <div className="flex grow flex-col items-center">
-                    {/* <Welcome setView={setView}/> */}
                     <img src="/img/elephant-portal.png" alt="" aria-hidden="true" className="absolute left-0 right-0 mx-auto min-w-[345px] max-w-[80%] z-0"/>
 
                     {viewRender()}
                 </div>
-            </section>
-        {/* </section> */}
-        </>
+            </>}
+            {props.matches && <>
+                <div className='flex'>
+                    <div className='flex flex-col h-[1000px] justify-evenly items-center w-[15%]'>
+                        <img src="/img/decorative-star.svg" alt="" className='w-32'/>
+                        <img src="/img/decorative-star.svg" alt="" className='w-32'/>
+                        <img src="/img/decorative-star.svg" alt="" className='w-32'/>
+                    </div>
+                    <div className="flex grow flex-col items-center">
+                        <img src="/img/elephant-portal-desktop.png" alt="" aria-hidden="true" className="absolute left-0 right-0 mx-auto min-w-[345px] max-w-[80%] z-0"/>
+                        {viewRender()}
+                    </div>
+                    <div className='flex flex-col h-[1000px] justify-evenly items-center w-[15%]'>
+                        <img src="/img/decorative-star.svg" alt="" className='w-32'/>
+                        <img src="/img/decorative-star.svg" alt="" className='w-32'/>
+                        <img src="/img/decorative-star.svg" alt="" className='w-32'/>
+                    </div>
+                </div>
+            </>}
+        </section>
     );
 };
 

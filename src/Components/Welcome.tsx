@@ -19,7 +19,7 @@ const Welcome = (props: Props) => {
             <img src="/img/ballon-tail-brown.svg" alt="" className="absolute top-[183px] left-[265px]"/>
             <img src="/img/ballon-tail-yellow.svg" alt="" className="absolute top-[231px] left-[247px]"/>
             <img src="/img/ballon-tail-red.svg" alt="" className="absolute top-[254px] left-[276px]"/>
-            {/* <img src="/img/Elephant.png" alt="" className="absolute z-10 top-[361px]"/> */}
+            {/* Balloons shall be added! */}
             {/* <div>ballonger</div>
             <div>ballonger</div> */}  
         </>

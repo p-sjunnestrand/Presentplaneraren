@@ -12,8 +12,6 @@ const Floaties = (props: Props) => {
             <button className="mr-4" onClick={() => props.setIsOpen(true)}>
                 <img src="/img/button-add.svg" alt="" className="relative"/>
             </button>
-            {/* <button onClick={() => props.setView("dashboard")}>Tillbaka</button> */}
-            {/* <button onClick={() => setIsOpen(true)}>Ny lista</button> */}
         </div>
     );
 };

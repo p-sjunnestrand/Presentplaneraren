@@ -1,46 +1,33 @@
-# Getting Started with Create React App
+0. # Caveats
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+As of right now, the backend API is hosted on Heroku, but the URIs in the API fetches in the clinet app do not reflect this. Also the frontend is not hosted. It will be in the future. This means that in order to run the app localy, you need to set up your own Mongo database to be connected to the server API.
 
-## Available Scripts
+1. # Installation
 
-In the project directory, you can run:
+Download this repo and the one titled [presentplaneraren-back].
+run `npm i` to install dependencies and packages and `npm start` to start app. Make sure the backend is running.
 
-### `npm start`
+2. # Known issues and future fixes
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    1. There are still a lot of css left to be done, mainly in terms of responsivity. The navbar buttons need to be styled correctly. Balloons to be added to the elephant.
+    2. Right now the js media query function is being used to trigger css changes, this should be changed to use Tailwind's own media query functionality.
+    3. Accepting/rejecting invites removes the invite prompt only through a hack. This needs to be fixed and involves moving a bunch of state around.
+    4. There is a prepared Google OAuth function that is disabled for now due to conflicts with local login. This is however more of a backend issue.
+    5. When creating a user, there is only choice for email and password. Username or the like should be added.
+    6. The repeat password input in register has no functionality tied to it.
+    7. When displaying users in a group, the mongodb object id is shown instead of email/username. Fixing it requires restructuring the database.
+    8. There is no settings functionality.
+    9. The placements of API calls need to be reviewd. They could perhaps be restructured to yield better responsivity, showing certain updates without requiring a site reload.
+    10. There needs to be more graphic variety: much looks the same. More detail colors that pop are needed to display buttons and updates and such.
+    11. The invite prompt should probably be moved from groups to dashboard.
+    12. The group selector when creating a new list is not functional.
+    13. Since site is mobile first, not much responsivity on buttons and such for desktop is implemented. Hover and click states are needed.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. # User test
 
-### `npm test`
+The app in its current form was tested by one user and the following points were made.
+1. Settings and logout button should not be in dashboad, since they draw attention away from the actual content. Should be moved elsewhere.
+2. "Bjud in" as stated when creating a group makes the user think that they can invite people without an account, since this is how it's usually done. Either implement such a function or change "bjud in" to something else that makes it clear that the user must already be on the app.
+3. When creating an item, "namn" is a strange label for what to call the item. Perhaps "önskemål" would be better.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+This is all legitimate critizism and will be reviewed. Further, I noticed that the user struggled with understandig the user flow. The way the app works and its purpose need to highlighted somehow, perhaps with popups in each section for new users.

@@ -16,34 +16,9 @@ const Authorized = (props: Props) => {
     const [lists, setLists] = useState<IList[]>([]);
     const [groups, setGroups] = useState<IGroup[]>([]);
     const [view, setView] = useState<string>("dashboard");
-    // const [currentList, setCurrentList] = useState<string>("");
     const [currentList, setCurrentList] = useState<IList|undefined>();
     const [invites, setInvites] = useState<IInvite[]>([]);
     const [currentGroup, setCurrentGroup] = useState<IGroup|undefined>();
-
-    useEffect(()=> {
-        console.log("use effect!");
-        
-        const fetchLists = async () => {
-            console.log("fetchting!");
-
-            // This fetch also fetches all groups connected to the user.
-            const fetchResult = await fetch("http://localhost:4000/lists", {
-                method: "GET",
-                credentials: "include",
-            });
-            const parsedResult = await fetchResult.json();
-            console.log(parsedResult);
-            
-            setLists(parsedResult.lists);
-            setGroups(parsedResult.groups);
-
-            if(props.user && props.user.invites.length > 0){
-                setInvites(props.user.invites);
-            }
-        }
-        fetchLists();
-    }, []);
     
     useEffect(() => {
         if(currentGroup) {
@@ -54,12 +29,29 @@ const Authorized = (props: Props) => {
                     credentials: "include"
                 });
                 const parsedResponse = await fetchResult.json();
-                console.log(parsedResponse);
                 setLists(parsedResponse);
             }
             fetchGroupLists();
+        } else {
+        const fetchLists = async () => {
+
+            // This fetch also fetches all groups connected to the user.
+            const fetchResult = await fetch("http://localhost:4000/lists", {
+                method: "GET",
+                credentials: "include",
+            });
+            const parsedResult = await fetchResult.json();
+            
+            setLists(parsedResult.lists);
+            setGroups(parsedResult.groups);
+
+            if(props.user && props.user.invites.length > 0){
+                setInvites(props.user.invites);
+            }
         }
-    }, [currentGroup])
+        fetchLists();
+        }
+    }, [currentGroup]);
     
     // Why is this here? Shouldn't it be in lists?
     const createItem = async (item: IItem) => {
@@ -77,7 +69,6 @@ const Authorized = (props: Props) => {
         });
         if(fetchResult.status === 200) {
             const parsedResponse = await fetchResult.json();
-            console.log(parsedResponse);
             const mutatedListState = [...lists];
             mutatedListState.forEach(list => {
                 if(list._id === currentList?._id) {
@@ -105,11 +96,12 @@ const Authorized = (props: Props) => {
                     heading="Dina listor"
                     previousView="dashboard"
                     listView={"list"}
+                    user={props.user}
                 />;
             case "list":
-                return <List lists={lists} currentList={currentList} setView={setView} createItem={createItem} setLists={setLists} setCurrentList={setCurrentList} previousView="lists" user={props.user}/>;
+                return <List lists={lists} currentList={currentList} setView={setView} createItem={createItem} setLists={setLists} setCurrentList={setCurrentList} previousView="lists" user={props.user} heading={currentList?.title}/>;
             case "groupList":
-                return <List lists={lists} currentList={currentList} setView={setView} createItem={createItem} setLists={setLists} setCurrentList={setCurrentList} previousView="group" currentGroup={currentGroup} user={props.user}/>;
+                return <List lists={lists} currentList={currentList} setView={setView} createItem={createItem} setLists={setLists} setCurrentList={setCurrentList} previousView="group" currentGroup={currentGroup} user={props.user} heading={currentList?.title}/>;
             case "groups":
                 return <Groups
                     groups={groups}
@@ -131,8 +123,8 @@ const Authorized = (props: Props) => {
                     heading={currentGroup?.name}
                     previousView="groups"
                     listView="groupList"
+                    user={props.user}
                 />;
-                // return <Group currentGroup={currentGroup} setCurrentGroup={setCurrentGroup} setView={setView} previousView={"groups"} setCurrentList={setCurrentList}/>
         }
     }
 
@@ -142,15 +134,10 @@ const Authorized = (props: Props) => {
 
     let currentView = renderSwitch();
 
-    // const newState = [...lists, lists]
     return (
         <>
-        {/* <section className="flex flex-col"> */}
-            {/* <img src="/img/Top-border.svg" alt="Decorative border" aria-hidden="true" className="w-screen"/> */}
             {currentView}
-            <Navbar invites={invites} logout={logout}/>
-            {/* {showCreateList && <NewList lists={lists} setLists={setLists}/>} */}
-        {/* </section> */}
+            <Navbar invites={invites} logout={logout} setView={setView}/>
         </>
     );
 };

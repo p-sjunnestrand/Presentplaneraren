@@ -2,21 +2,33 @@ import { useState } from "react";
 
 interface Props {
 setView: (view: string) => void,
+setUser: (user: IUser|undefined) => void,
 }
 const Register = (props: Props) => {
-    // const [userInfo, setUserInfo] = useState(
-    //     {
-    //         userEmail: "",
-    //         userPassword: "",
-    //         userNameFirst: "",
-    //         userNameLast: "",
-    //     }
-    // );
+    
     const [userEmail, setUserEmail] = useState<string>("");
     const [userPassword, setUserPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
+    // These are legacy and should prob be replaced by userName or the like.
     const [userNameFirst, setUserNameFirst] = useState<undefined | string>(undefined);
     const [userNameLast, setUserNameLast] = useState<undefined | string>(undefined);
+
+    // This should be moved to app.tsx
+    const localLogin = async (email: string, password: string) => {
+        const fetchResult = await fetch("http://localhost:4000/auth/local", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        });
+        const resultData = await fetchResult.json();
+        props.setUser(resultData.user);
+    }
 
     const registerUser = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -35,6 +47,7 @@ const Register = (props: Props) => {
         if(fetchResult.status === 200) {
             const resultData = await fetchResult.json();
             console.log(resultData);
+            localLogin(userEmail, userPassword);
         } else if(fetchResult.status === 409) {
             console.log("Email upptagen");
             
@@ -61,6 +74,7 @@ const Register = (props: Props) => {
                     <label htmlFor="inputConfirmPassword" className="block">Upprepa lösenordet</label>
                     <input type="password" id="inputConfirmPassword" required value={confirmPassword} onChange={(e: React.FormEvent<HTMLInputElement>) => setConfirmPassword(e.currentTarget.value)}/>
                 </div>
+                {/* This should prob be changed for userName or the like. Disabled for now */}
                 {/* <label htmlFor="inputNameFirst">Förnamn</label>
                 <input type="text" id="inputNameFirst" value={userNameFirst} onChange={(e: React.FormEvent<HTMLInputElement>) => setUserNameFirst(e.currentTarget.value)}/>
                 <label htmlFor="inputNameLast">Efternamn</label>

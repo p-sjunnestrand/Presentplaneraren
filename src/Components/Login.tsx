@@ -5,13 +5,20 @@ interface Props {
     setView: (view: string) => void,
 }
 const Login = (props: Props) => {
+
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+
+    // const localAuthURI = "http://localhost:4000/auth/local";
+    const localAuthURI = "https://presentplaneraren.herokuapp.com/auth/local";
+    // This auth method is disabled for now, but will be implemented in the future. Something in it conflicts with the local method.
     const googleLogin = (): void => {
         window.open("http://localhost:4000/auth/google", "_self");
     }
    
     const localLogin = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        const fetchResult = await fetch("http://localhost:4000/auth/local", {
+        const fetchResult = await fetch(localAuthURI, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -27,23 +34,9 @@ const Login = (props: Props) => {
         
     }
 
-    // const getUser = async () => {
-    //     const result = await fetch("http://localhost:4000/user", {
-    //         method: "GET",
-    //         credentials: "include",
-    //     });
-    //     const data = await result.json();
-    //     console.log(data);
-        
-    // };
-
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-
     return (
         <>
             <img src="/img/form.svg" alt="" className="absolute top-36 max-w-[60%]"/>
-            {/* <button id="buttonGoogleLogin" onClick={googleLogin}>Google</button> */}
             <h2 className="relative text-2xl top-32">Inloggning</h2>
             <form action="submit" className="relative mt-[8.5rem] flex flex-col items-center" onSubmit={localLogin}>
                 <div>
@@ -58,12 +51,10 @@ const Login = (props: Props) => {
                     <img src="/img/button-border.svg" alt="" aria-hidden="true" className="absolute top-0 w-[10.313rem]"/>
                     Logga in
                 </button>
-                {/* <button onClick={localLogin}>Logga in</button> */}
             </form>
             <button className="mt-4" onClick={() => props.setView("landing")}>
                 <img src="/img/button-back.svg" alt="" className="relative"/>
             </button>
-            {/* <button onClick={getUser}>Get user</button> */}
         </>
     );
 };

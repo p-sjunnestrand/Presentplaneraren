@@ -2,17 +2,19 @@ import Welcome from './Welcome';
 
 interface Props{
     setView: (view: string) => void,
+    matches: boolean,
 }
 
 const Landing = (props: Props) => {
     return (
-        <>
-            <button className="relative w-[131px] border-2 border-detail-sec h-12 mt-36 shadow-button">
-                <img src="/img/button-border.svg" alt="" aria-hidden="true" className="absolute top-0" onClick={() => props.setView("login")}/>
+        // All these media queries in class should be made by tailwind's own functionality!
+        <div className={`flex ${props.matches ? "mt-64" : "flex-col"}`}>
+            <button className={`relative border-2 border-detail-sec shadow-button ${props.matches ? "h-16 w-56 text-2xl mr-8 hover:bg-detail-prim hover:text-bg-minor" : "mt-36 w-[131px] h-12 "}`}>
+                <img src={props.matches ? "/img/large-button.svg" : "/img/button-border.svg"} alt="" aria-hidden="true" className="absolute top-0" onClick={() => props.setView("login")}/>
                 Inloggning
             </button>
-            <button className="relative w-[131px] border-2 border-detail-sec h-12 mt-4 shadow-button" onClick={() => props.setView("register")}>
-                <img src="/img/button-border.svg" alt="" aria-hidden="true" className="absolute top-0"/>
+            <button className={`relative border-2 border-detail-sec shadow-button ${props.matches ? "h-16 w-56 text-2xl ml-8 hover:bg-detail-prim hover:text-bg-minor" : "mt-4 w-[131px] h-12"}`} onClick={() => props.setView("register")}>
+                <img src={props.matches ? "/img/large-button.svg" : "/img/button-border.svg"} alt="" aria-hidden="true" className="absolute top-0"/>
                 Skapa konto
             </button>
             {/* <img src="/img/ballon-trunk-yellow.svg" alt="" className="absolute"/>
@@ -23,7 +25,7 @@ const Landing = (props: Props) => {
             <img src="/img/ballon-tail-red.svg" alt="" className="absolute top-[254px] left-[276px]"/> */}
             {/* <img src="/img/Elephant.png" alt="" className="absolute z-10 top-[361px]"/> */}
              
-        </>
+        </div>
     );
 };
 

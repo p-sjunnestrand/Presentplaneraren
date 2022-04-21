@@ -1,6 +1,7 @@
 interface Props {
     invites: IInvite[],
     logout: () => void,
+    setView: (view: string) => void,
 }
 const Navbar = (props: Props) => {
 
@@ -9,16 +10,22 @@ const Navbar = (props: Props) => {
         <nav className="bg-detail-prim border-t-2 border-detail-sec fixed bottom-0 w-screen">
             <ul className='flex justify-evenly'>
                 <li>
-                    <img src="/img/nav-button.svg" alt="" aira-hidden="true"/>
-                    <button>Dashboard</button>
+                    <button onClick={() => props.setView("dashboard")}>
+                        <img src="/img/nav-button.svg" alt="" aira-hidden="true"/>
+                        Dashboard
+                    </button>
                 </li>
                 <li>
-                    <img src="/img/nav-button.svg" alt="" aira-hidden="true"/>
-                    <button>Listor</button>
+                    <button onClick={() => props.setView("lists")}>
+                        <img src="/img/nav-button.svg" alt="" aira-hidden="true"/>
+                        Listor
+                    </button>
                 </li>
                 <li>
-                    <img src="/img/nav-button.svg" alt="" aira-hidden="true"/>
-                    <button>Inställningar</button>
+                    <button onClick={() => props.setView("groups")}>
+                        <img src="/img/nav-button.svg" alt="" aira-hidden="true"/>
+                        Grupper
+                    </button>
                 </li>
                 <li>
                     <button onClick={props.logout}>
