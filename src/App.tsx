@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Authorized from './Components/Authorized';
 import Unauthorized from './Components/Unauthorized';
+import Header from './Components/Header';
 
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
 
   // This meida query is used for image sources
   useEffect(() => {
-    window.matchMedia("(min-width: 1200px) and (max-width: 1400px)").addEventListener('change', e => setMatches( e.matches ));
+    window.matchMedia("(min-width: 1200px)").addEventListener('change', e => setMatches( e.matches ));
   }, []);
 
   useEffect(() => {
@@ -61,17 +62,10 @@ function App() {
   }
 
   return ( 
-    <main className={`bg-bg-main min-h-screen text-detail-sec overflow-y-auto flex flex-col`}>
-      <header>
-            {/* <img src="/img/Top-border.svg" alt="Decorative border" aria-hidden="true" className="w-screen"/> */}
-                <div className='bg-top-border-desktop h-[70px]' aria-hidden="true"></div>
-                <div className="bg-bg-minor py-[0.5rem] text-center">
-                    <h1>Presentplaneraren</h1>
-                    {user ? <h2 className='text-base'>Inloggad som {user?.email}</h2> : null}
-                </div>
-                <div className='bg-top-border-desktop h-[70px]' aria-hidden="true"></div>
-                {/* <img src="/img/Top-border.svg" alt="Decorative border" aria-hidden="true" className="w-screen"/> */}
-            </header>
+    <main className={`bg-bg-main min-h-screen text-detail-sec overflow-y-auto flex flex-col overflow-hidden`}>
+      
+        <Header user={user}/>
+       
       {user && <Authorized user={user} changeInvites={changeInvites}/>}
       {!user && <Unauthorized setUser={setUser} matches={matches}/>}
     </ main>

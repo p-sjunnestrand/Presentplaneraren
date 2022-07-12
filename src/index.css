@@ -17,3 +17,22 @@ h2 {
 .Modal {
     background-color: pink;
 }
+.unauthorized-wrapper{
+    min-height: calc(100vh - 221px);
+}
+.balloon{
+    width: 70px;
+    height: 100px;
+    background-color: red;
+    position: absolute;
+    border-radius: 50%;
+    animation: 5s infinite alternate wobble linear;
+}
+@keyframes wobble {
+    from {
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(10px);
+    }
+}

@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import List from "./List";
 import Navbar from "./Navbar";
 import Groups from './Groups';
-import Group from './Group';
 
 interface Props {
     user: IUser|undefined,
